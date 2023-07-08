@@ -1,0 +1,6 @@
+beautifulsoup4==4.12.2
+openai==0.27.8
+pandas==1.5.3
+requests==2.31.0
+selenium==4.9.1
+tqdm==4.64.1
