@@ -2,8 +2,8 @@ import bs4
 import json
 import openai
 import os
-import pandas as pd
 from pprint import pprint
+import random
 import requests
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -11,7 +11,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 from tqdm import tqdm
 
 
@@ -152,7 +151,7 @@ def career_websites_parse():
     options.add_argument("--headless")
     with webdriver.Chrome(options=options) as driver:
         hyperlinks = []
-        for career_website in CAREER_WEBSITES[:1]:
+        for career_website in CAREER_WEBSITES:
             hyperlinks_curr = career_website_parse(career_website, driver)
             hyperlinks.extend(hyperlinks_curr)
 
@@ -258,6 +257,7 @@ def job_description_relevance_prompt_get(candidate_background, candidate_job_req
 def job_relevance_llm_score(job_descriptions):
     """Get job relevance score from LLM"""
     job_relevance_scores = []
+    random.shuffle(job_descriptions)
     for job_description in tqdm(job_descriptions[:JOB_DESCRIPTIONS_TO_SCORE_MAX]):
         prompt = job_description_relevance_prompt_get(CANDIDATE_BACKGROUND, CANDIDATE_JOB_REQUIREMENTS, job_description["page_text"])
         llm_output = openai_chat_completion_request(prompt)
