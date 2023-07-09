@@ -247,9 +247,9 @@ def job_description_relevance_prompt_get(candidate_background, candidate_job_req
         f"===\n{page_text}\n===\n\n"
         f"Please identify how relevant this position is to my requirements and background.\n"
         f"Provide a score between 0 and 10 where 0 is for position which is not even from my field, 1 for position from my field but not relevant to me, and 10 for position which is a perfect match to me.\n"
-        f"Output results as a JSON with the following keys: `title` and `score`.\n"
+        f"Output results as a JSON with the following keys:\n"
         f"- `title` - the job title from the page;\n"
-        f"- `explanation` - explanation how the position is relevant to the candidate;\n"
+        f"- `explanation` - explanation of how the position is relevant (or not relevant) to me;\n"
         f"- `score` - score between 0 and 10.\n"
     )
     return prompt
